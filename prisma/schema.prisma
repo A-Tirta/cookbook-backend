@@ -12,8 +12,8 @@ datasource db {
 
 model user {
   id Int @id @db.Int @default(autoincrement())
-  create_date DateTime @db.DateTime(0) @default(now())
-  update_date DateTime @db.DateTime(0) @updatedAt
+  create_at DateTime @db.DateTime(0) @default(now())
+  update_at DateTime @db.DateTime(0) @updatedAt
   
   email String @db.VarChar(50) @unique
   username String @db.VarChar(50) @unique
@@ -22,4 +22,39 @@ model user {
   first_name String @db.VarChar(255)
   last_name String @db.VarChar(255)
   status String @db.VarChar(255) @default("")
+
+  authors_recepies recepies[]
+
+  comments comments[]
+}
+
+model recepies {
+  id Int @id @db.Int @default(autoincrement()) 
+  create_at DateTime @db.DateTime(0) @default(now())
+  update_at DateTime @db.DateTime(0) @updatedAt
+
+  author_id user @relation(fields: [userId], references: [id])
+  userId Int
+
+  ingredients String @db.Text
+  directions String @db.Text
+  author_comments String? @db.Text 
+  posted Boolean @db.TinyInt
+  likes Int @db.Int @default(0)
+
+  comments comments[]
+}
+
+model comments {
+  id Int @id @db.Int @default(autoincrement()) 
+  create_at DateTime @db.DateTime(0) @default(now())
+  update_at DateTime @db.DateTime(0) @updatedAt
+
+  comments String @db.Text
+
+  user_id user @relation(fields: [userId], references: [id])
+  userId Int
+  
+  recepies_id recepies @relation(fields: [recepiesId], references: [id])
+  recepiesId Int
 }
