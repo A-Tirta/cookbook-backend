@@ -6,3 +6,7 @@ export interface returnResponse {
     info?: any;
   };
 }
+
+export interface token {
+  id: number;
+}
