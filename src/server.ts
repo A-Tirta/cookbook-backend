@@ -1,9 +1,11 @@
-import express from "express";
-import cors from "cors";
-import * as dotenv from "dotenv";
-import cookieParser from "cookie-parser";
+import express from 'express';
+import cors from 'cors';
+import * as dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 
-import rootRoutes from "./routes";
+import { JWTCheck } from './middleware';
+
+import rootRoutes from './routes';
 
 async function main() {
   dotenv.config();
@@ -15,16 +17,18 @@ async function main() {
 
   app.use(
     cors({
-      origin: "*",
+      origin: '*',
       credentials: true,
     })
   );
   app.use(cookieParser());
 
+  app.use(JWTCheck);
+
   app.use(rootRoutes);
 
   app.listen(process.env.PORT, () => {
-    console.log("Server Up and Running Port: " + process.env.PORT);
+    console.log('Server Up and Running Port: ' + process.env.PORT);
   });
 }
 
