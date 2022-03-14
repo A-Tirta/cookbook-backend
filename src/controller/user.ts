@@ -112,6 +112,20 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
           status: true,
           create_at: true,
           update_at: true,
+          authors_recepies: {
+            select: {
+              ingredients: true,
+              directions: true,
+              author_comments: true,
+              posted: true,
+              likes: true,
+              comments: {
+                select: {
+                  comments: true,
+                },
+              },
+            },
+          },
         },
       });
 
@@ -162,6 +176,20 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
           status: true,
           create_at: true,
           update_at: true,
+          authors_recepies: {
+            select: {
+              ingredients: true,
+              directions: true,
+              author_comments: true,
+              posted: true,
+              likes: true,
+              comments: {
+                select: {
+                  comments: true,
+                },
+              },
+            },
+          },
         },
       });
 
