@@ -32,11 +32,12 @@ router.get('/', async (req: Request, res: Response, next: NextFunction) => {
             ingredients: true,
             directions: true,
             author_comments: true,
-            posted: false,
-            author_id: {
+            posted: true,
+            create_at: true,
+            update_at: true,
+            comments: {
               select: {
-                first_name: true,
-                last_name: true,
+                comments: true,
               },
             },
           },
@@ -106,11 +107,12 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
             ingredients: true,
             directions: true,
             author_comments: true,
-            posted: false,
-            author_id: {
+            posted: true,
+            create_at: true,
+            update_at: true,
+            comments: {
               select: {
-                first_name: true,
-                last_name: true,
+                comments: true,
               },
             },
           },
@@ -191,20 +193,15 @@ router.post('/buat_resep', body(['ingredients', 'directions']).isString(), body(
             directions: true,
             author_comments: true,
             posted: true,
-            likes: true,
-            author_id: {
-              select: {
-                first_name: true,
-                last_name: true,
-              },
-            },
+            create_at: true,
+            update_at: true,
           },
         });
 
         resObject = {
           statuscode: 200,
           data: {
-            message: 'Get All Recepies',
+            message: 'Recepiest berhasil dibuat',
             data: createRecepiest,
           },
         };
@@ -284,11 +281,11 @@ router.put('/:id_ubah_resep', async (req: Request, res: Response, next: NextFunc
             directions: true,
             author_comments: true,
             posted: true,
-            likes: true,
-            author_id: {
+            create_at: true,
+            update_at: true,
+            comments: {
               select: {
-                first_name: true,
-                last_name: true,
+                comments: true,
               },
             },
           },
